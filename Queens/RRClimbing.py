@@ -1,5 +1,6 @@
 from random import randint
 from math import fabs
+from datetime import datetime
 
 
 # 随机重启爬山法
@@ -62,6 +63,7 @@ class RandResetClimbing:
         self.chess_board[row] = self.get_perfect_position(row)
 
     def solve(self):
+        tic = datetime.now()
         reset_count = 0  # 重启次数
         step = 0        # 爬山步长
         row_pointer = 0
@@ -84,7 +86,8 @@ class RandResetClimbing:
                 row_pointer += 1
             step += 1
 
-        print(f'solved!, totally {step} steps and {reset_count} reset times')
+        tok = (datetime.now() - tic).microseconds
+        print(f'Random Reset Climbing Algorithm solved!, totally {step} steps and {reset_count} reset times, cast {tok} ms')
 
         return self.chess_board
 

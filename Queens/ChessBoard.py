@@ -2,29 +2,29 @@ from random import randint
 
 
 class ChessBoard:
-    def __init__(self, N):
+    def __init__(self, n):
         self.chess_board = []
+        self.N = n
 
-        for i in range(0, N):
+        for i in range(0, n):
             self.chess_board.append(i)
 
-        for row1 in range(0, N):
-            row2 = randint(0, N-1)
+        # 原地洗牌算法打乱棋盘
+        for row1 in range(0, n-1):
+            row2 = randint(row1+1, n-1)
             tmp = self.chess_board[row1]
             self.chess_board[row1] = self.chess_board[row2]
             self.chess_board[row2] = tmp
 
     def __repr__(self):
-        res = '-{}\n'.format("--" * 8)
-
+        res = ""
         for row in range(0, len(self.chess_board)):
-            res += "|"
             for col in range(0, len(self.chess_board)):
                 if self.chess_board[row] == col:
-                    res += "*|"
+                    res += "{:3}".format("Q")
                     continue
-                res += " |"
-            res += '\n{}-\n'.format("--" * 8)
+                res += "{:3}".format("*")
+            res += "\n"
 
         return res
 
