@@ -86,7 +86,7 @@ class RandResetClimbing:
                 row_pointer += 1
             step += 1
 
-        tok = (datetime.now() - tic).microseconds
+        tok = (datetime.now() - tic).microseconds / 1000
         print(f'Random Reset Climbing Algorithm solved!, totally {step} steps and {reset_count} reset times, cast {tok} ms')
 
         return self.chess_board

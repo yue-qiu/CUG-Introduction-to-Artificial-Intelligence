@@ -91,7 +91,7 @@ class MinConflicts:
             else:
                 row_pointer += 1
 
-        tok = (datetime.now() - tic).microseconds
+        tok = (datetime.now() - tic).microseconds / 1000
         print(f'Minimum Conflicts Algorithm Solved, cast {tok} ms')
 
         return self.chess_board
