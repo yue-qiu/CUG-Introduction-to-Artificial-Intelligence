@@ -37,7 +37,7 @@ class MinConflicts:
         return row + col
 
     # 适应度函数
-    def qualify(self):
+    def check_status(self):
         for row in range(0, self.N):
             if self.cols[self.chess_board[row]] != 1 or self.pdiag[
                 MinConflicts.get_pdiag(row, self.chess_board[row], self.bias)] != 1 or self.cdiag[
@@ -75,7 +75,7 @@ class MinConflicts:
 
             self.chess_board[row] = perfect_posi
 
-        return self.qualify()
+        return self.check_status()
 
     def solve(self):
         tic = datetime.now()
