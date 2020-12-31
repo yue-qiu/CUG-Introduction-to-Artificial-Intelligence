@@ -10,7 +10,7 @@ class Solution:
         self.chromosome_length = 4  # 染色体初始长度
         self.min_domain_of_definition = 0
         self.max_domain_of_definition = 15
-        self.num_of_individuals = 20  # 种群大小
+        self.num_of_individuals = 8  # 种群大小
         self.p_mutate = 0.2  # 变异概率
         self.p_crossover = 0.9  # 染色体交叉概率
 
