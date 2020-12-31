@@ -1,6 +1,7 @@
 # 遗传算法求解 f(x) = 15x - x^2 的极大值，其中 x 为整数。定义域为 [0, 15]
 from random import randint
 from math import pow
+from datetime import datetime
 
 
 class Solution:
@@ -10,7 +11,7 @@ class Solution:
         self.chromosome_length = 4  # 染色体初始长度
         self.min_domain_of_definition = 0
         self.max_domain_of_definition = 15
-        self.num_of_individuals = 8  # 种群大小
+        self.num_of_individuals = 10  # 种群大小
         self.p_mutate = 0.2  # 变异概率
         self.p_crossover = 0.9  # 染色体交叉概率
 
@@ -23,12 +24,14 @@ class Solution:
         return "".join(l)
 
     def create_population(self):
+        self.population = []
         for i in range(0, self.num_of_individuals):
             num = randint(self.min_domain_of_definition, self.max_domain_of_definition)
             self.population.append(self.decimal_to_binary_str(num))
 
     # 计算种群中每个个体的适应度
     def get_fitness(self):
+        self.fitness = []
         for i in range(0, self.num_of_individuals):
             self.fitness.append(15 * int(self.population[i], base=2) - pow(int(self.population[i], base=2), 2))
 
@@ -100,6 +103,7 @@ class Solution:
         return "".join(tmp)
 
     def solve(self, times):
+        tic = datetime.now()
         self.create_population()
 
         while times != 0:
@@ -134,4 +138,7 @@ class Solution:
             times -= 1
 
         # 进化结束，选择最好的一个个体
-        return self.get_maximum_value()
+        max_value = self.get_maximum_value()
+        tok = (datetime.now() - tic).seconds
+        print(f"Genetic Algorithm to find maximum value has done, cast {tok} s")
+        return max_value
