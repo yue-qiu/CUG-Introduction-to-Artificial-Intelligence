@@ -35,6 +35,11 @@ class Solution:
         for i in range(0, self.num_of_individuals):
             self.fitness.append(15 * int(self.population[i], base=2) - pow(int(self.population[i], base=2), 2))
 
+    # 计算个体适应度
+    @staticmethod
+    def cal_fitness(individual):
+        return 15 * individual - pow(individual, 2)
+
     # 得到适应度最大值
     def get_maximum_value(self):
         res = self.fitness[0]
@@ -57,6 +62,12 @@ class Solution:
     def select(self):
         parents = []
         m = 0
+
+        # 所有个体的适应度都一样，可以任意选。为了方便选择前两个
+        if self.get_maximum_value() == self.get_minimum_value():
+            parents = [self.population[0], self.population[1]]
+            return parents
+
         p1 = randint(self.get_minimum_value(), self.get_maximum_value()-1)
         p2 = randint(self.get_minimum_value(), self.get_maximum_value()-1)
 
@@ -125,7 +136,8 @@ class Solution:
                         son = self.mutate(son)
 
                     # 如果孩子比父母更优秀，放入新种群中
-                    if int(son, base=2) >= int(parents[0], base=2) and int(son, base=2) >= int(parents[1], base=2):
+                    if Solution.cal_fitness(int(son, base=2)) >= Solution.cal_fitness(int(parents[0], base=2)) and \
+                            Solution.cal_fitness(int(son, base=2)) >= Solution.cal_fitness(int(parents[1], base=2)):
                         new_population.append(son)
                         break
                     else:
