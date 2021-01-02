@@ -155,5 +155,5 @@ class GeneticAlgorithm:
         # 进化结束，得到不冲突的个体
         self.chess_board = self.population[self.position_of_no_conflict()]
         tok = (datetime.now() - tic).seconds
-        print(f'Genetic Algorithm solved, total generation: {num_of_generation}, cast {tok} s')
+        print(f'Genetic Algorithm solved, totally {num_of_generation} generations, cast {tok} s')
         return self.chess_board

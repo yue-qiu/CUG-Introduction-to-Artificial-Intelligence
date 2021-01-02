@@ -81,8 +81,10 @@ class MinConflicts:
         tic = datetime.now()
         ok = False
         row_pointer = 0
+        num_of_generations = 0
 
         while not ok:
+            num_of_generations += 1
             # 逐行调整最佳位置
             if self.set_perfect_position(row_pointer):
                 ok = True
@@ -92,6 +94,6 @@ class MinConflicts:
                 row_pointer += 1
 
         tok = (datetime.now() - tic).microseconds / 1000
-        print(f'Minimum Conflicts Algorithm Solved, cast {tok} ms')
+        print(f'Minimum Conflicts Algorithm Solved, totally {num_of_generations} generations, cast {tok} ms')
 
         return self.chess_board
