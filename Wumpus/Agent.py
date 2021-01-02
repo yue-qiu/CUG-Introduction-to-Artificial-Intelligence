@@ -29,6 +29,7 @@ class Agent:
         self.found_gold = False
         self.took_gold = False
         self.exited = False
+        self.step = 0
 
         print(self)
 
@@ -154,6 +155,7 @@ class Agent:
             if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
                 self.found_gold = True
 
+            self.step += 1
             # 没发现 gold 就记录下当前房间，退出洞穴的时候要原路返回
             if not self.found_gold:
                 self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
@@ -390,3 +392,11 @@ class Agent:
             return False
 
         return True
+
+    def cal_score(self):
+        score = 0
+        if self.took_gold:
+            score += 1000
+        score -= self.step
+
+        return score
