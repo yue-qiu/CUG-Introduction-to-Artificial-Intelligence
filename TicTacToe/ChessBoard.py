@@ -61,7 +61,8 @@ class ChessBoard:
 
     # ai 落子
     def ai_move(self):
-        best_val = -2
+        # 井字棋游戏的评估值只有 -1, 0, 1 三种，所以用 -2、2 分别表示负无穷与正无穷
+        best_val = -2  # ai 评估值用负无穷初始化，记录在不同位置进行 alpha-beta 剪枝可以得到的最大评估值，即对 ai 最有利的落子点
         moves = []
         for i in range(0, len(self.chess_board)):
             if self.chess_board[i] == ChessBoard.IDLE_SLOT:
@@ -69,9 +70,11 @@ class ChessBoard:
                 val = self.alpha_beta_valuation(self.player_chess, self.ai_chess, -2, 2)
                 self.chess_board[i] = ChessBoard.IDLE_SLOT
 
+                # 在 self.chess_board[i] 落子比在当前最好位置落子更好，重置 ai 的落子范围
                 if val > best_val:
                     best_val = val
                     moves = [i]
+                # 在 self.chess_board[i] 落子与当前最好位置一样好，扩大 ai 可落子范围
                 if val == best_val:
                     moves.append(i)
 
@@ -131,12 +134,12 @@ class ChessBoard:
                     if val > alpha:
                         alpha = val
                     if alpha >= beta:
-                        return beta  # 返回最大可能 beta 进行剪枝
+                        return alpha  # 返回最大可能 alpha 进行 beta 剪枝
                 else:  # 当前处于 min 层
                     if val < beta:
                         beta = val
-                    if beta <= alpha:
-                        return alpha  # 返回最大可能 alpha 进行剪枝
+                    if alpha >= beta:
+                        return beta  # 返回最大可能 beta 进行 alpha 剪枝
 
         if chess_type == Chess.OFFENSIVE_CHESS:
             ret = alpha

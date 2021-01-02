@@ -116,8 +116,9 @@ class Solution:
     def solve(self, times):
         tic = datetime.now()
         self.create_population()
+        generations = 0
 
-        while times != 0:
+        while generations != times:
             self.get_fitness()
             new_population = []
             while len(new_population) != len(self.population):
@@ -147,10 +148,10 @@ class Solution:
 
             # 用更优秀的新种群代替老种群
             self.population = new_population
-            times -= 1
+            generations += 1
 
         # 进化结束，选择最好的一个个体
         max_value = self.get_maximum_value()
         tok = (datetime.now() - tic).seconds
-        print(f"Genetic Algorithm to find maximum value has done, cast {tok} s")
+        print(f"Genetic Algorithm to find maximum value has done, total {times} iterations, cast {tok} s")
         return max_value
