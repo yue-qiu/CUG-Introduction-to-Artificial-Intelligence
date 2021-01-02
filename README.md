@@ -1,3 +1,14 @@
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
 # CUG Introduction to Artificial Intelligence
 
 这个 repo 是 2020 Fall 中国地质大学（武汉）计算机学院赵曼老师《人工智能导论》课的期末上机内容。一共包含五个题目：
@@ -6,7 +17,7 @@
 - 使用联机搜索求解 Wumpus 怪兽世界问题
 - 采用α-β 剪枝算法实现井字棋游戏
 - 采用粒子群算法求解函数 $y = f(x_1, x_2) =x_1^2 - x_2^2$  的最小值，其中 $-10 \leq x_1, x_2 \leq 10$
-- 利用遗传算法求解函数 $f(x) = 15x - x^2; x \in [0, 15]$, $x \in Z$ 时的最大值
+- 利用遗传算法求解函数 $f(x) = 15x - x^2; x \in [0, 15], x \in Z$ 时的最大值
 
 理论上是要求有图形化界面的，由于本人宁愿扣分也不想花时间在画 GUI 上所以全部用命令行来实现。命令行才是程序员的浪漫 :-)
 
