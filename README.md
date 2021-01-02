@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 # CUG Introduction to Artificial Intelligence
 
 这个 repo 是 2020 Fall 中国地质大学（武汉）计算机学院赵曼老师《人工智能导论》课的期末上机内容。一共包含五个题目：
