@@ -1,3 +1,5 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 # CUG Introduction to Artificial Intelligence
 
 这个 repo 是 2020 Fall 中国地质大学（武汉）计算机学院赵曼老师《人工智能导论》课的期末上机内容。一共包含五个题目：
@@ -57,5 +59,3 @@ Score = 1000 * gold - step
 遗传算法个人觉得蛮有意思的，模拟了自然界选择配偶、杂交和变异的过程。整个过程中以适应度为标准不断更新种群，结果就是整个种群越来越好，直到满足了我们预设的标准。
 
 ![GA运行结果](https://i.loli.net/2021/01/02/SJI13ghQvGAtbfY.png)
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
