@@ -58,3 +58,4 @@ Score = 1000 * gold - step
 
 ![GA运行结果](https://i.loli.net/2021/01/02/SJI13ghQvGAtbfY.png)
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
