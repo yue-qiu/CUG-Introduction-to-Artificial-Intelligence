@@ -18,7 +18,19 @@
 
 ## 实现 Wumpus World 游戏
 
-Wumpus World 的描述：
+地图保存在 `world.txt` 里。地图上有一个 wumpus 和若干个 pit。当然这个规则也要靠地图设计者自己保证。
+
+wumpus 四周的房间会散发 stench，pit 四周的房间会发出 breeze。agent 走到某个房间里才能感知到 stench 或 breeze。
+
+agent 根据运动时获得的信息推断 wumpus 和 pit 的位置并一直规避。找到 gold 或者在确保自己安全的情况下无路可走就原路返回。
+
+分数计算公式：
+
+```
+Score = 1000 * gold - step
+```
+
+![wumpus](https://i.loli.net/2021/01/02/kU4FZq8OyQY9jWl.png)
 
 ## $\alpha$-$\beta$ 剪枝法实现井字棋人机对弈
 
