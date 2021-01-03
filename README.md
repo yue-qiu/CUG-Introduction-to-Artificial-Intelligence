@@ -19,19 +19,21 @@ tips: 如果发现本文数学公式渲染有问题，这是因为 GitHub 不支
 
 ## 实现 Wumpus World 游戏
 
-地图保存在 `world.txt` 里。地图上有一个 wumpus 和若干个 pit。当然这个规则也要靠地图设计者自己保证。
+性能量度: gold +1000, death -1000，-1 per step
+
+环境描述：
+
+- Squares adjacent to wumpus are smelly
+- Squares adjacent to pit are breezy
+- Glitter if gold is in the same square
+- Grabbing picks up gold if in same square
+
+地图保存在 `world.txt` 里。地图上有一个 wumpus 和若干个 pit。当然这个规则要靠地图设计者自己保证。
 
 wumpus 四周的房间会散发 stench，pit 四周的房间会发出 breeze。agent 走到某个房间里才能感知到 stench 或 breeze。
 
-agent 根据运动时获得的信息推断 wumpus 和 pit 的位置并一直规避。找到 gold 或者在确保自己安全的情况下无路可走就原路返回。
+agent 根据运动时获得的信息推断 wumpus 和 pit 的位置并保持规避，只在绝对安全或者没有探险过的房间中移动。找到 gold 或者无路可走就原路返回。往未去过的房间移动时可能会遇到 Wumpus 或 pit 导致死亡。
 
-分数计算公式：
-
-```
-Score = 1000 * gold - step
-```
-
-![wumpus](https://i.loli.net/2021/01/02/kU4FZq8OyQY9jWl.png)
 
 ## $\alpha$-$\beta$ 剪枝法实现井字棋人机对弈
 

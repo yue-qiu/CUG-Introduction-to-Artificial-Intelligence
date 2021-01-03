@@ -62,21 +62,21 @@ class Agent:
         del self.path_out_of_cave[-1]
 
     # 按着来时路径退出洞穴
-    def leave_cave(self):
-        for tile in reversed(self.path_out_of_cave):
-            if self.world.agent_row - 1 == tile[0]:
-                self.move('u')
-            if self.world.agent_row + 1 == tile[0]:
-                self.move('d')
-            if self.world.agent_col + 1 == tile[1]:
-                self.move('r')
-            if self.world.agent_col - 1 == tile[1]:
-                self.move('l')
-
-            if self.world.cave_entrance_row == self.world.agent_row and \
-                    self.world.cave_entrance_col == self.world.agent_col and self.found_gold:
-                self.exited = True
-                break
+    # def leave_cave(self):
+    #     for tile in reversed(self.path_out_of_cave):
+    #         if self.world.agent_row - 1 == tile[0]:
+    #             self.move('u')
+    #         if self.world.agent_row + 1 == tile[0]:
+    #             self.move('d')
+    #         if self.world.agent_col + 1 == tile[1]:
+    #             self.move('r')
+    #         if self.world.agent_col - 1 == tile[1]:
+    #             self.move('l')
+    #
+    #         if self.world.cave_entrance_row == self.world.agent_row and \
+    #                 self.world.cave_entrance_col == self.world.agent_col and self.found_gold:
+    #             self.exited = True
+    #             break
 
     # wumpus 开始移动，顺时针 bfs
     def explore(self):
@@ -106,8 +106,14 @@ class Agent:
                     if self.move('l'):
                         already_moved = True
 
+            # 当前位置没有可去的房间
             if not already_moved:
-                self.go_back_one_tile()
+                # 退出游戏
+                if self.world.agent_row == self.world.cave_entrance_row and \
+                        self.world.agent_col == self.world.cave_entrance_col:
+                    break
+                else:  # 后退一步
+                    self.go_back_one_tile()
 
             already_moved = False
 
@@ -248,37 +254,45 @@ class Agent:
 
                 # 记忆中一个潜在 wumpus 身边有不存在 stench 的房间，那这就不可能是一个真的 wumpus
                 if 'w' in self.world_knowledge[i][j]:
-                    if i - 1 >= 0 and '.' in self.world_knowledge[i - 1][j] and 'S' not in self.world_knowledge[i - 1][j]:
+                    if i - 1 >= 0 and '.' in self.world_knowledge[i - 1][j] and 'S' not in self.world_knowledge[i - 1][
+                        j]:
                         self.world_knowledge[i][j].remove('w')
                         self.world_knowledge[i][j].append('nw')
 
-                    if j + 1 < self.world.num_cols and '.' in self.world_knowledge[i][j + 1] and 'S' not in self.world_knowledge[i][j + 1]:
+                    if j + 1 < self.world.num_cols and '.' in self.world_knowledge[i][j + 1] and 'S' not in \
+                            self.world_knowledge[i][j + 1]:
                         self.world_knowledge[i][j].remove('w')
                         self.world_knowledge[i][j].append('nw')
 
-                    if i + 1 < self.world.num_rows and '.' in self.world_knowledge[i + 1][j] and 'S' not in self.world_knowledge[i + 1][j]:
+                    if i + 1 < self.world.num_rows and '.' in self.world_knowledge[i + 1][j] and 'S' not in \
+                            self.world_knowledge[i + 1][j]:
                         self.world_knowledge[i][j].remove('w')
                         self.world_knowledge[i][j].append('nw')
 
-                    if j - 1 >= 0 and '.' in self.world_knowledge[i][j - 1] and 'S' not in self.world_knowledge[i][j - 1]:
+                    if j - 1 >= 0 and '.' in self.world_knowledge[i][j - 1] and 'S' not in self.world_knowledge[i][
+                        j - 1]:
                         self.world_knowledge[i][j].remove('w')
                         self.world_knowledge[i][j].append('nw')
 
                 # 记忆中一个潜在 pit 身边有不存在 breeze 的房间，那这就不可能是一个真的 pit
                 if 'p' in self.world_knowledge[i][j]:
-                    if i - 1 >= 0 and '.' in self.world_knowledge[i - 1][j] and 'B' not in self.world_knowledge[i - 1][j]:
+                    if i - 1 >= 0 and '.' in self.world_knowledge[i - 1][j] and 'B' not in self.world_knowledge[i - 1][
+                        j]:
                         self.world_knowledge[i][j].remove('p')
                         self.world_knowledge[i][j].append('np')
 
-                    if j + 1 < self.world.num_cols and '.' in self.world_knowledge[i][j + 1] and 'B' not in self.world_knowledge[i][j + 1]:
+                    if j + 1 < self.world.num_cols and '.' in self.world_knowledge[i][j + 1] and 'B' not in \
+                            self.world_knowledge[i][j + 1]:
                         self.world_knowledge[i][j].remove('p')
                         self.world_knowledge[i][j].append('np')
 
-                    if i + 1 < self.world.num_rows and '.' in self.world_knowledge[i + 1][j] and 'B' not in self.world_knowledge[i + 1][j]:
+                    if i + 1 < self.world.num_rows and '.' in self.world_knowledge[i + 1][j] and 'B' not in \
+                            self.world_knowledge[i + 1][j]:
                         self.world_knowledge[i][j].remove('p')
                         self.world_knowledge[i][j].append('np')
 
-                    if j - 1 >= 0 and '.' in self.world_knowledge[i][j - 1] and 'B' not in self.world_knowledge[i][j - 1]:
+                    if j - 1 >= 0 and '.' in self.world_knowledge[i][j - 1] and 'B' not in self.world_knowledge[i][
+                        j - 1]:
                         self.world_knowledge[i][j].remove('p')
                         self.world_knowledge[i][j].append('np')
 
