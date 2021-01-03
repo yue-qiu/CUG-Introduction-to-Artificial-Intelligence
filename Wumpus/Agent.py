@@ -27,9 +27,9 @@ class Agent:
         self.world.cave_entrance_row = self.world.agent_row
         self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False
-        self.took_gold = False
         self.exited = False
-        self.step = 0
+        self.has_dead = False
+        self.steps = 0
 
         print(self)
 
@@ -81,11 +81,7 @@ class Agent:
     # wumpus 开始移动，顺时针 bfs
     def explore(self):
         already_moved = False
-        while not self.found_gold:
-
-            if self.found_gold:
-                break
-
+        while not self.found_gold and not self.has_dead:
             if self.is_safe_move(self.world.agent_row - 1, self.world.agent_col) and \
                     '.' not in self.world_knowledge[self.world.agent_row - 1][self.world.agent_col]:
                 if not already_moved:
@@ -124,10 +120,11 @@ class Agent:
     """
 
     def move(self, direction):
-        if self.found_gold and not self.took_gold:
-            self.took_gold = True
-            if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
-                self.world_knowledge[self.world.agent_row][self.world.agent_col].remove('G')
+        if self.has_dead:
+            return False
+
+        if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
+            self.world_knowledge[self.world.agent_row][self.world.agent_col].remove('G')
 
         successful_move = False
         if direction == 'u':
@@ -155,7 +152,7 @@ class Agent:
             if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
                 self.found_gold = True
 
-            self.step += 1
+            self.steps += 1
             # 没发现 gold 就记录下当前房间，退出洞穴的时候要原路返回
             if not self.found_gold:
                 self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
@@ -163,6 +160,7 @@ class Agent:
             time.sleep(3)
 
             print(self)
+            self.confirm_whether_is_dead()
         return successful_move
 
     # 更新关于 agent 所在房间的记忆。包括该房间是否有 breeze、是否有 stench、是否发现 gold、是否有 pit、是否有 wumpus
@@ -364,15 +362,13 @@ class Agent:
             self.world.world[self.world.agent_row][self.world.agent_col].append('.')
             self.world_knowledge[self.world.agent_row][self.world.agent_col].append('.')
 
-    def is_dead(self):
+    def confirm_whether_is_dead(self):
         if 'W' in self.world.world[self.world.agent_row][self.world.agent_col]:
             print("You have been slain by the Wumpus!")
-            return True
+            self.has_dead = True
         elif 'P' in self.world.world[self.world.agent_row][self.world.agent_col]:
             print("You have fallen in a pit!")
-            return True
-        else:
-            return False
+            self.has_dead = True
 
     # 判断 [row, col] 房间是否安全。只有在房间合法且一定安全的时候返回 True
     def is_safe_move(self, row, col):
@@ -395,8 +391,10 @@ class Agent:
 
     def cal_score(self):
         score = 0
-        if self.took_gold:
+        if self.found_gold:
             score += 1000
-        score -= self.step
+        if self.has_dead:
+            score -= 1000
+        score -= self.steps
 
         return score

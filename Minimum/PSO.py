@@ -83,5 +83,5 @@ class Solution:
 
         tok = (datetime.now() - tic).microseconds / 1000
         res = round(self.cal_fitness(Particle(self.global_perfect_posi[0], self.global_perfect_posi[1])), 2)
-        print(f"Particle swarm optimization to find minimum value has done, total {times} iterations, cast {tok} ms")
+        print(f"Particle swarm optimization to find minimum value has done, totally {times} iterations, cast {tok} ms")
         return res
