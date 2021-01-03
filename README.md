@@ -34,6 +34,33 @@ wumpus 四周的房间会散发 stench，pit 四周的房间会发出 breeze。a
 
 agent 根据运动时获得的信息推断 wumpus 和 pit 的位置并保持规避，只在绝对安全或者没有探险过的房间中移动。找到 gold 或者无路可走就原路返回。往未去过的房间移动时可能会遇到 Wumpus 或 pit 导致死亡。
 
+在这张地图中：
+
+```
+4 4
+A 3 0
+W 1 0
+G 1 1
+P 0 3
+P 1 2
+P 3 2
+```
+
+![找到gold](https://i.loli.net/2021/01/03/ia5nGpNzltgyedC.png)
+
+而在这张地图中，agent 在出生点就感受到了 breeze，游戏直接结束：
+
+```
+4 4
+A 3 0
+W 1 0
+G 1 1
+P 0 3
+P 1 2
+P 3 1
+```
+
+![没找到gold](https://i.loli.net/2021/01/03/gd9RXBJucwT5IlZ.png)
 
 ## $\alpha$-$\beta$ 剪枝法实现井字棋人机对弈
 

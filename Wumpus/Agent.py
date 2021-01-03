@@ -23,7 +23,6 @@ class Agent:
         self.world_knowledge[self.world.agent_row][self.world.agent_col].append('A')
         self.num_stenches = 0
         self.path_out_of_cave = [[self.world.agent_row, self.world.agent_col]]
-        self.mark_tile_visited()
         self.world.cave_entrance_row = self.world.agent_row
         self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False
@@ -31,6 +30,10 @@ class Agent:
         self.has_dead = False
         self.steps = 0
 
+        self.add_indicators_to_knowledge()
+        self.mark_tile_visited()
+        self.predict_wumpus()
+        self.predict_pits()
         print(self)
 
     def __repr__(self):
@@ -112,7 +115,7 @@ class Agent:
                 if self.world.agent_row == self.world.cave_entrance_row and \
                         self.world.agent_col == self.world.cave_entrance_col:
                     break
-                else:  # 后退一步
+                else: # 后退一步
                     self.go_back_one_tile()
 
             already_moved = False
