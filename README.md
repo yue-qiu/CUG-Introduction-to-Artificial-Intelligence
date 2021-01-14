@@ -48,20 +48,6 @@ P 3 2
 
 ![找到gold](https://i.loli.net/2021/01/03/ia5nGpNzltgyedC.png)
 
-而在这张地图中，agent 在出生点就感受到了 breeze，游戏直接结束：
-
-```
-4 4
-A 3 0
-W 1 0
-G 1 1
-P 0 3
-P 1 2
-P 3 1
-```
-
-![没找到gold](https://i.loli.net/2021/01/03/gd9RXBJucwT5IlZ.png)
-
 ## $\alpha$-$\beta$ 剪枝法实现井字棋人机对弈
 
 玩家落子的时候没有做可行检测，所以要自己注意不要再非空地上落子否则会发生覆盖。
